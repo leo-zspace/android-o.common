@@ -635,7 +635,7 @@
 		port-id-mode = <0>; /** 0: hardware, 1: sw_host, 2: sw_slave*/
 		usb-fifo = <728>;
 		cpu-type = "gxl";
-		controller-type = <3>; /** 0: normal,1:host,2:device,3:otg*/
+		controller-type = <2>; /** 0: normal,1:host,2:device,3:otg*/
 		phy-reg = <0xd0078000>;
 		phy-reg-size = <0xa0>;
 		clocks = <&clkc CLKID_USB_GENERAL
