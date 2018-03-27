@@ -32,8 +32,7 @@
 		serial0 = &uart_AO;
 		serial1 = &uart_A;
 		serial2 = &uart_B;
-		serial3 = &uart_C;
-		serial4 = &uart_AO_B;
+		serial3 = &uart_AO_B;
 	};
 
 	ion_dev {
@@ -137,38 +136,6 @@
 			size = <0x0 0x0>;
 			alignment = <0x0 0x100000>;
 			//no-map;
-		};
-	};
-	bt-dev{
-		compatible = "amlogic, bt-dev";
-		dev_name = "bt-dev";
-		status = "okay";
-		gpio_reset = <&gpio       GPIOX_17       GPIO_ACTIVE_HIGH>;
-	};
-	wifi{
-		compatible = "amlogic, aml_wifi";
-		dev_name = "aml_wifi";
-		status = "okay";
-		interrupt_pin = <&gpio       GPIOX_7       GPIO_ACTIVE_HIGH>;
-		irq_trigger_type = "GPIO_IRQ_LOW";
-		power_on_pin = <&gpio       GPIOX_6       GPIO_ACTIVE_HIGH>;
-		//if use bcm wifi, config dhd_static_buf and 32k as bellow
-		dhd_static_buf;
-		pinctrl-names = "default";
-		pinctrl-0 = <&wifi_32k_pins>;
-		pwm_config = <&wifi_pwm_conf>;
-	};
-
-	wifi_pwm_conf:wifi_pwm_conf{
-		pwm_channel1_conf {
-			pwms = <&pwm_ef MESON_PWM_0 30040 0>;
-			duty-cycle = <15020>;
-			times = <8>;
-		};
-		pwm_channel2_conf {
-			pwms = <&pwm_ef MESON_PWM_2 30030 0>;
-			duty-cycle = <15015>;
-			times = <12>;
 		};
 	};
 
