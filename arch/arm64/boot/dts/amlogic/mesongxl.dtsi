@@ -357,7 +357,7 @@
 		pinctrl-0 = <&ao_b_uart_pins>;
 	};
 
-i2c_ao: i2c@c8100500{ /*I2C-AO*/
+	i2c_ao: i2c@c8100500{ /*I2C-AO*/
 		compatible = "amlogic, meson-i2c";
 		dev_name = "i2c-AO";
 		status = "disabled";
