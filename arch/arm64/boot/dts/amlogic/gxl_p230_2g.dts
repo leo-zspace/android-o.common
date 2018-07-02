@@ -1191,6 +1191,31 @@
 //		fe0_ts = <0>;
 //		fe0_dev = <0>;
 //	};
+	// zSpace bitbang gpio i2c buses
+	i2c_gpio_b: i2c_b {
+		compatible = "i2c-gpio";
+		status = "okay";
+		gpios = < &gpio GPIODV_26 0 /* sda */
+			&gpio GPIODV_27 0 /* scl */ >;
+		i2c-gpio,sda-open-drain = "true" ;
+		i2c-gpio,scl-open-drain = "true" ;
+		#address-cells = <1>;
+		#size-cells = <0>;
+		i2c-gpio,delay-us = <10>; /* 50 KHz */
+		i2c-gpio,timeout-ms = <10>;
+	};
+	i2c_gpio_d: i2c_d {
+		compatible = "i2c-gpio";
+		status = "okay";
+		gpios = < &gpio GPIOX_10 0 /* sda */
+			&gpio GPIOX_11 0 /* scl */ >;
+		i2c-gpio,sda-open-drain = "true" ;
+		i2c-gpio,scl-open-drain = "true" ;
+		#address-cells = <1>;
+		#size-cells = <0>;
+		i2c-gpio,delay-us = <10>; /* 50 KHz */
+		i2c-gpio,timeout-ms = <10>;
+	};
 };
 &efuse {
 	status = "ok";
