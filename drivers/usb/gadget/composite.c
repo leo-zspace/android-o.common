@@ -1096,7 +1096,7 @@ static int get_string(struct usb_composite_dev *cdev,
 		return s->bLength;
 	}
 
-	if (cdev->use_os_string && language == 0 && id == OS_STRING_IDX) {
+	if (cdev->use_os_string && id == OS_STRING_IDX) {
 		struct usb_os_string *b = buf;
 		b->bLength = sizeof(*b);
 		b->bDescriptorType = USB_DT_STRING;
@@ -1521,6 +1521,7 @@ static int fill_ext_prop(struct usb_configuration *c, int interface, u8 *buf)
 				case USB_EXT_PROP_UNICODE:
 				case USB_EXT_PROP_UNICODE_ENV:
 				case USB_EXT_PROP_UNICODE_LINK:
+				case USB_EXT_PROP_UNICODE_MULTI:
 					usb_ext_prop_put_unicode(buf, ret,
 							 ext_prop->data,
 							 ext_prop->data_len);
