@@ -3075,12 +3075,6 @@ static inline struct f_fs_opts *ffs_do_functionfs_bind(struct usb_function *f,
 	return ffs_opts;
 }
 
-static int __ffs_func_bind_do_count(enum ffs_entity_type type, u8 *valuep,
-	struct usb_descriptor_header *desc, void *priv)
-{
-	return 0;
-}
-
 static int _ffs_func_bind(struct usb_configuration *c,
 			  struct usb_function *f)
 {
@@ -3088,10 +3082,8 @@ static int _ffs_func_bind(struct usb_configuration *c,
 	struct ffs_data *ffs = func->ffs;
 
 	const int full = !!func->ffs->fs_descs_count;
-	const int high = gadget_is_dualspeed(func->gadget) &&
-		func->ffs->hs_descs_count;
-	const int super = gadget_is_superspeed(func->gadget) &&
-		func->ffs->ss_descs_count;
+	const int high = !!func->ffs->hs_descs_count;
+	const int super = !!func->ffs->ss_descs_count;
 
 	int fs_len, hs_len, ss_len, ret, i;
 	struct ffs_ep *eps_ptr;
@@ -3168,14 +3160,6 @@ static int _ffs_func_bind(struct usb_configuration *c,
 			ret = fs_len;
 			goto error;
 		}
-	} else if (ffs->fs_descs_count > 0) {
-		fs_len = ffs_do_descs(ffs->fs_descs_count,
-			vla_ptr(vlabuf, d, raw_descs),
-			d_raw_descs__sz, __ffs_func_bind_do_count, func);
-		if (unlikely(fs_len < 0)) {
-			ret = fs_len;
-			goto error;
-		}
 	} else {
 		fs_len = 0;
 	}
@@ -3190,15 +3174,6 @@ static int _ffs_func_bind(struct usb_configuration *c,
 			ret = hs_len;
 			goto error;
 		}
-	} else if (ffs->hs_descs_count > 0) {
-		hs_len = ffs_do_descs(ffs->hs_descs_count,
-			vla_ptr(vlabuf, d, raw_descs) + fs_len,
-			d_raw_descs__sz - fs_len, __ffs_func_bind_do_count,
-			func);
-		if (unlikely(hs_len < 0)) {
-			ret = hs_len;
-			goto error;
-		}
 	} else {
 		hs_len = 0;
 	}
@@ -3209,15 +3184,6 @@ static int _ffs_func_bind(struct usb_configuration *c,
 				vla_ptr(vlabuf, d, raw_descs) + fs_len + hs_len,
 				d_raw_descs__sz - fs_len - hs_len,
 				__ffs_func_bind_do_descs, func);
-		if (unlikely(ss_len < 0)) {
-			ret = ss_len;
-			goto error;
-		}
-	} else if (ffs->ss_descs_count > 0) {
-		ss_len = ffs_do_descs(ffs->ss_descs_count,
-			vla_ptr(vlabuf, d, raw_descs) + fs_len + hs_len,
-			d_raw_descs__sz - fs_len - hs_len,
-			__ffs_func_bind_do_count, func);
 		if (unlikely(ss_len < 0)) {
 			ret = ss_len;
 			goto error;
