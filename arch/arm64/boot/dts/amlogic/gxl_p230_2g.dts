@@ -1215,9 +1215,9 @@
 //	status = "okay";
 //	pinctrl-0=<&c_i2c_master_pin1>;
 //};
-&i2c_b {
-        status = "okay";
-        pinctrl-0=<&b_i2c_master>;
+&i2c_d {
+  status = "okay";
+  pinctrl-0=<&d_i2c_master>;
 };
 
 &pinctrl_periphs {
